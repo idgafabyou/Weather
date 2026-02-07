@@ -3,27 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ben Weather Pro</title>
+<title>Ben Weather Premium</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
-    <h1>🌤 Ben Weather Pro</h1>
+<div class="container">
+    <h1>🌦 Ben Weather</h1>
+    <p id="dateTime"></p>
 
-    <div class="search">
+    <div class="search-box">
         <input type="text" id="cityInput" placeholder="Search city...">
         <button onclick="getWeatherByCity()">Search</button>
     </div>
 
-    <div id="currentWeather" class="weather hidden">
-        <h2 id="location"></h2>
-        <img id="icon">
-        <h3 id="temp"></h3>
-        <p id="condition"></p>
-    </div>
+    <div id="weatherCard" class="weather-card hidden">
+        <h2 id="cityName"></h2>
+        <img id="weatherIcon" />
+        <h3 id="temperature"></h3>
+        <p id="description"></p>
 
-    <div id="forecast" class="forecast"></div>
+        <div class="details">
+            <div>
+                <span>💧 Humidity</span>
+                <p id="humidity"></p>
+            </div>
+            <div>
+                <span>🌬 Wind</span>
+                <p id="wind"></p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="script.js"></script>
