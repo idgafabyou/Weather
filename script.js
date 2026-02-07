@@ -1,20 +1,16 @@
-const apiKey = "4fddd1ca815f6d4bd341aa9f4fa5ea78";
+const apiKey = "73e575d199c278805c89e3fbe7f81ef3";
 
-// Show current date & time
-function updateDateTime() {
-    const now = new Date();
-    document.getElementById("dateTime").textContent =
-        now.toLocaleDateString() + " • " + now.toLocaleTimeString();
-}
-setInterval(updateDateTime, 1000);
-updateDateTime();
-
-// Auto detect user location on load
-window.onload = function () {
+// Auto detect location
+window.onload = () => {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            getWeatherByCoords(position.coords.latitude, position.coords.longitude);
-        });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                getWeatherByCoords(position.coords.latitude, position.coords.longitude);
+            },
+            () => {
+                console.log("Location denied");
+            }
+        );
     }
 };
 
@@ -22,19 +18,26 @@ async function getWeatherByCity() {
     const city = document.getElementById("cityInput").value.trim();
     if (!city) return alert("Enter city name");
 
-    fetchWeather(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    fetchWeather(url);
 }
 
 async function getWeatherByCoords(lat, lon) {
-    fetchWeather(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    fetchWeather(url);
 }
 
 async function fetchWeather(url) {
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Error");
-
         const data = await response.json();
+
+        console.log(data);
+
+        if (response.status !== 200) {
+            alert(data.message);
+            return;
+        }
 
         document.getElementById("cityName").textContent =
             `${data.name}, ${data.sys.country}`;
@@ -56,24 +59,8 @@ async function fetchWeather(url) {
 
         document.getElementById("weatherCard").classList.remove("hidden");
 
-        changeBackground(data.weather[0].main);
-
     } catch (error) {
-        alert("City not found or API error");
-    }
-}
-
-// Change background based on weather
-function changeBackground(weather) {
-    const body = document.body;
-
-    if (weather.includes("Cloud")) {
-        body.style.background = "linear-gradient(135deg, #757F9A, #D7DDE8)";
-    } else if (weather.includes("Rain")) {
-        body.style.background = "linear-gradient(135deg, #314755, #26a0da)";
-    } else if (weather.includes("Clear")) {
-        body.style.background = "linear-gradient(135deg, #f7971e, #ffd200)";
-    } else {
-        body.style.background = "linear-gradient(135deg, #1e3c72, #2a5298)";
+        console.error(error);
+        alert("Network error or CORS issue");
     }
 }
