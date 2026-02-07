@@ -2,57 +2,45 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background 0.5s ease;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
     color: white;
+    padding: 20px;
 }
 
-.container {
+.app {
     width: 100%;
-    max-width: 420px;
-    padding: 30px;
-    border-radius: 20px;
+    max-width: 500px;
     background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
+    padding: 25px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-h1 {
-    margin-bottom: 10px;
-}
-
-#dateTime {
-    font-size: 14px;
-    margin-bottom: 20px;
-    opacity: 0.8;
-}
-
-.search-box {
+.search {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
-.search-box input {
+.search input {
     flex: 1;
-    padding: 12px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 8px;
     border: none;
-    outline: none;
 }
 
-.search-box button {
-    padding: 12px;
-    border-radius: 10px;
+.search button {
+    padding: 10px;
+    border-radius: 8px;
     border: none;
     background: white;
     color: #333;
@@ -60,26 +48,33 @@ h1 {
     cursor: pointer;
 }
 
-.weather-card img {
-    width: 80px;
+.weather img {
+    width: 90px;
 }
 
-.weather-card h3 {
-    font-size: 42px;
+.weather h3 {
+    font-size: 40px;
     margin: 10px 0;
 }
 
-.details {
+.forecast {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.details div {
-    width: 48%;
-    padding: 10px;
-    border-radius: 10px;
+.forecast-card {
     background: rgba(255,255,255,0.2);
+    padding: 10px;
+    border-radius: 12px;
+    width: 30%;
+    font-size: 14px;
+}
+
+.forecast-card img {
+    width: 50px;
 }
 
 .hidden {
